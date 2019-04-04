@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Nav from "./components/Navbar";
-
+import header from "./components/Header/index"
 class App extends Component {
   state = {
     watchList: [
