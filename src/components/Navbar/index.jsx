@@ -1,27 +1,26 @@
 import React from "react";
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import "./style.css";
+import { NavLink } from "react-router-dom";
 
-const Navbar = props => (
-  <Router>
-    <nav className="navbar">
-      <Link className="navbar-brand" to="/">
-        Home
-      </Link>
-      <div className="navbar-collapse">
-        <ul className="navbar-ul">
-          <li className="nav-item">
-            <Link className="nav-link" to="/search">
-              Search
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/move-list">
-              Movie List
-            </Link>
-          </li>
-        </ul>
-      </div>
-    </nav>
-  </Router>
+const Navbar = () => (
+  <nav className="navbar">
+    <NavLink className="navbar-brand" to="/">
+      Home
+    </NavLink>
+    <div className="navbar-collapse">
+      <ul className="navbar-ul">
+        <li className="nav-item">
+          <NavLink className="nav-link" to="/search">
+            Search
+          </NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink className="nav-link" href='movie-list' to="/movie-list">
+            Movie List
+          </NavLink>
+        </li>
+      </ul>
+    </div>
+  </nav>
 );
 export default Navbar;
