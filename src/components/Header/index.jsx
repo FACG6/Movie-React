@@ -1,9 +1,19 @@
 import React from "react";
-const Header = props => (
-<div className="container">
-    <div className="sectionSearch">
-            <button className="btnSearch">Search</button>
+import "./style.css";
+
+const Header = ({ change, submit }) => (
+  <section className="header">
+    <div className="header--main">
+      <form action="/search" onSubmit={submit}>
+        <input
+          className="header-input"
+          onChange={change}
+          type="text"
+          placeholder="Search"
+        />
+      </form>
     </div>
-</div>    
-)
+  </section>
+);
+
 export default Header;
