@@ -5,7 +5,7 @@ import Watchlist from "./components/Wathchlist";
 import getMovie from "./utils/getMovie";
 import Search from "./components/Search";
 import Popup from "./components/Popup";
-
+import WatchListHome from "./components/Home";
 class App extends Component {
   state = {
     watchList: [
@@ -25,7 +25,7 @@ class App extends Component {
         date: "4April,2019",
         overview:
           " The story follows Carol Danvers as she becomes one of the universe’s most powerful heroes when Earth is caught in the middle of a galactic war between two alien races. Set in the 1990s, Captain Marvel is an all-new adventure from a previously unseen period in the history of the Marvel Cinematic Universe.",
-        status: true
+        status: true                         
       }
     ],
     searchResult: null,
@@ -92,6 +92,15 @@ class App extends Component {
           submit={this.handleAddToWatchList}
         />
         <Switch>
+        <Route
+        exact
+        path={"/"}
+        component={() => (
+          <WatchListHome
+          watchList={this.state.watchList}
+          />
+        )}
+       />
           <Route
             exact
             path={"/search"}
