@@ -4,7 +4,7 @@ import "./style.css";
 const Header = ({ change, submit }) => (
   <section className="header">
     <div className="header--main">
-      <form action="/search" onSubmit={submit}>
+      <form className='searchForm' action="/search" onSubmit={submit}>
         <input
           className="header-input"
           onChange={change}

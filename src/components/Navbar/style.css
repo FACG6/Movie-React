@@ -6,6 +6,7 @@
   position: fixed;
   width: 100%;
   z-index: 1;
+  height: 70px;
 }
 
 .navbar-brand {
@@ -31,4 +32,16 @@
   font-size: 30px;
   color: #B41010;
   font-weight: 700;
+}
+
+@media only screen and (max-width: 900px) {
+  .nav-link {
+    font-size: 20px;
+  }
+}
+
+@media only screen and (max-width: 640px) {
+  .navbar-collapse {
+    width: 51%;
+  }
 }
