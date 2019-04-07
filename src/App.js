@@ -5,7 +5,8 @@ import Watchlist from "./components/Wathchlist";
 import getMovie from "./utils/getMovie";
 import Search from "./components/Search";
 import Popup from "./components/Popup";
-import WatchListHome from "./components/Home";
+import Home from "./components/Home";
+
 class App extends Component {
   state = {
     watchList: [
@@ -25,14 +26,23 @@ class App extends Component {
         date: "4April,2019",
         overview:
           " The story follows Carol Danvers as she becomes one of the universe’s most powerful heroes when Earth is caught in the middle of a galactic war between two alien races. Set in the 1990s, Captain Marvel is an all-new adventure from a previously unseen period in the history of the Marvel Cinematic Universe.",
-        status: true                         
+        status: true
       }
     ],
+    isError: null,
     searchResult: null,
     MovieToAdd: { display: "none" }
   };
   search = null;
 
+  componentDidUpdate() {
+    localStorage.setItem("state", JSON.stringify(this.state));
+  }
+
+  componentDidMount() {
+    this.setState(JSON.parse(localStorage.getItem("state")));
+    this.setState({ searchResult: null });
+  }
   handleIdToAdd = (e, title) => {
     this.setState({
       MovieToAdd: {
@@ -49,14 +59,14 @@ class App extends Component {
     const { title: name, overview, poster_path } = this.state.searchResult[id];
     this.setState({
       MovieToAdd: { display: "none" },
-      watchList: this.state.watchList.concat([
+      watchList: [
         {
           name,
           overview,
           img: `https://image.tmdb.org/t/p/w600_and_h900_bestv2${poster_path}`,
           date
         }
-      ])
+      ].concat(this.state.watchList)
     });
   };
 
@@ -71,12 +81,14 @@ class App extends Component {
 
   handleGetMovie = e => {
     e.preventDefault();
-    getMovie(this.search).then(response => {
-      this.setState({ searchResult: response.results });
-      const html = document.querySelector("html");
-      const sectionTwoTitel = document.querySelector(".watchList--main");
-      setTimeout(() => (html.scrollTop = sectionTwoTitel.offsetTop), 200);
-    });
+    getMovie(this.search)
+      .then(response => {
+        this.setState({ searchResult: response.results });
+        const html = document.querySelector("html");
+        const sectionTwoTitel = document.querySelector(".watchList--main");
+        setTimeout(() => (html.scrollTop = sectionTwoTitel.offsetTop), 200);
+      })
+      .catch(() => this.setState({ isError: "Error" }));
   };
 
   handleSearchInput = e => {
@@ -84,6 +96,8 @@ class App extends Component {
   };
 
   render() {
+    if (this.state.isError) return <h1>Error ...</h1>;
+
     return (
       <BrowserRouter>
         <Nav />
@@ -92,15 +106,11 @@ class App extends Component {
           submit={this.handleAddToWatchList}
         />
         <Switch>
-        <Route
-        exact
-        path={"/"}
-        component={() => (
-          <WatchListHome
-          watchList={this.state.watchList}
+          <Route
+            exact
+            path={"/"}
+            component={() => <Home watchList={this.state.watchList} />}
           />
-        )}
-       />
           <Route
             exact
             path={"/search"}
@@ -114,6 +124,7 @@ class App extends Component {
             )}
           />
           <Route
+            exact
             path={"/movie-list"}
             component={() => (
               <Watchlist

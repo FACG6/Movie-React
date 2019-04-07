@@ -1,17 +1,21 @@
 import React from "react";
-import CardHomeList from "../CardHomelist";
+import Cardhome from "../Cardhome";
 import "./style.css";
-const WatchListHome = ({watchList}) => (
-    <section id="movie-list" className="watch-list">
-        <div className="main-list">
-            <h1 className="homeList-h1">The Last movie you added</h1>
-            <div className="list-watchList">
-            {watchList.map((list,index)=>(
-                <CardHomeList key={index} id={index} data={list}/>
-            ))}
 
-            </div>
-        </div>
-    </section>
-);
-export default WatchListHome;
+const Home = ({ watchList }) => {
+  return (
+    <div className="main">
+      <h1 className="main--header">The last movie you added</h1>
+      <div className="watchList-list">
+        {watchList &&
+          watchList
+            .slice(0, 4)
+            .map((search, index) => (
+              <Cardhome key={index} id={index} data={search} />
+            ))}
+      </div>
+    </div>
+  );
+};
+
+export default Home;
