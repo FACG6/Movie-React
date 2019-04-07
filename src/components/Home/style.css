@@ -1,0 +1,10 @@
+.main-list{
+    display: flex;
+    padding-top: 50px;
+    flex-direction: column;
+    align-items: center;
+}
+.homeList-h1{
+    font-size: 60px;
+    font-family: lato;
+}
