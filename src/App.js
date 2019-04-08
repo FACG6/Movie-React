@@ -9,29 +9,11 @@ import Home from "./components/Home";
 
 class App extends Component {
   state = {
-    watchList: [
-      {
-        name: "CAPTAIN MARVEL",
-        img:
-          "https://image.tmdb.org/t/p/w600_and_h900_bestv2/AtsgWhDnHTq68L0lLsUrCnM7TjG.jpg",
-        date: "4April,2019",
-        overview:
-          " The story follows Carol Danvers as she becomes one of the universe’s most powerful heroes when Earth is caught in the middle of a galactic war between two alien races. Set in the 1990s, Captain Marvel is an all-new adventure from a previously unseen period in the history of the Marvel Cinematic Universe.",
-        status: false
-      },
-      {
-        Name: "CAPTAIN MARVEL",
-        img:
-          "https://image.tmdb.org/t/p/w600_and_h900_bestv2/AtsgWhDnHTq68L0lLsUrCnM7TjG.jpg",
-        date: "4April,2019",
-        overview:
-          " The story follows Carol Danvers as she becomes one of the universe’s most powerful heroes when Earth is caught in the middle of a galactic war between two alien races. Set in the 1990s, Captain Marvel is an all-new adventure from a previously unseen period in the history of the Marvel Cinematic Universe.",
-        status: true
-      }
-    ],
+    watchList: [],
     isError: null,
     searchResult: null,
-    MovieToAdd: { display: "none" }
+    MovieToAdd: { display: "none" },
+    ids: []
   };
   search = null;
 
@@ -52,11 +34,20 @@ class App extends Component {
     });
   };
 
+  hidePopup = () => {
+    this.setState({ MovieToAdd: { display: "none" } });
+  };
+
   handleAddToWatchList = e => {
     e.preventDefault();
     const date = e.target[0].value;
     const id = e.target[1].id;
-    const { title: name, overview, poster_path } = this.state.searchResult[id];
+    const {
+      title: name,
+      overview,
+      poster_path,
+      id: idMovie
+    } = this.state.searchResult[id];
     this.setState({
       MovieToAdd: { display: "none" },
       watchList: [
@@ -66,7 +57,8 @@ class App extends Component {
           img: `https://image.tmdb.org/t/p/w600_and_h900_bestv2${poster_path}`,
           date
         }
-      ].concat(this.state.watchList)
+      ].concat(this.state.watchList),
+      ids: [idMovie].concat(this.state.ids)
     });
   };
 
@@ -78,6 +70,8 @@ class App extends Component {
       return cloneState;
     });
   };
+
+isInWatchlist = (id) => this.state.ids.includes(id)
 
   handleGetMovie = e => {
     e.preventDefault();
@@ -104,6 +98,7 @@ class App extends Component {
         <Popup
           data={this.state.MovieToAdd}
           submit={this.handleAddToWatchList}
+          click={this.hidePopup}
         />
         <Switch>
           <Route
@@ -120,6 +115,7 @@ class App extends Component {
                 change={this.handleSearchInput}
                 submit={this.handleGetMovie}
                 idAdd={this.handleIdToAdd}
+                isInWatchlist={this.isInWatchlist}
               />
             )}
           />
@@ -130,6 +126,17 @@ class App extends Component {
               <Watchlist
                 click={this.handleWatchlistDone}
                 watchList={this.state.watchList}
+              />
+            )}
+          />
+          <Route
+            component={() => (
+              <img
+                src="http://www.gmailsupportpedia.com/images/404.jpg"
+                style={{
+                  "margin-left": "25%"
+                }}
+                alt="404 PAGE NOT FOUND"
               />
             )}
           />

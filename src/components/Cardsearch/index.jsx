@@ -1,7 +1,7 @@
 import React from "react";
 import "./style.css";
 
-const Cardsearch = ({ data: { title, overview, poster_path }, id, idAdd }) => (
+const Cardsearch = ({ data: { title, overview, poster_path }, id, idAdd, isInWatchlist, movieId }) => (
   <div className="list">
     {poster_path ? (
       <img
@@ -12,14 +12,21 @@ const Cardsearch = ({ data: { title, overview, poster_path }, id, idAdd }) => (
     ) : (
       <img className="img" alt="No Movie Poster" />
     )}
-    <i
+    {isInWatchlist(movieId)? <i
+      id={id}
+      className="fas fas fa-check addToWatchList"
+    >
+      {" "}
+      Already in watchlist
+    </i>: <i
       onClick={e => idAdd(e, title)}
       id={id}
       className="fas fa-plus-circle addToWatchList"
     >
       {" "}
       Add To Watch List
-    </i>
+    </i>}
+    
     <div className="description">
       <h3>
         Name : <br /> {title}

@@ -18,6 +18,7 @@
   padding: 3%;
   height: 22%;
   background: white;
+  position: relative;
 }
 
 form.form {
@@ -39,4 +40,15 @@ form.form {
   border: none;
   font-size: 28px;
   font-family: lato;
+}
+
+.fa-window-close {
+  position: absolute;
+  right: 40px;
+  cursor: pointer;
+  font-size: 30px;
+}
+
+.text {
+  font-size: 21px;
 }

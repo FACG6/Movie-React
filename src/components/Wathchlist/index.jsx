@@ -7,9 +7,13 @@ const Watchlist = ({ click, watchList }) => (
     <div className="watchList--main">
       <h1 className="watchList-h1">Watch List</h1>
       <div className="watchList-list">
-        {watchList.map((list, index) => (
-          <Cardwatchlist key={index} click={click} id={index} data={list} />
-        ))}
+        {watchList && watchList.length !== 0 ? (
+          watchList.map((list, index) => (
+            <Cardwatchlist key={index} click={click} id={index} data={list} />
+          ))
+        ) : (
+          <h1 className="emptyList">Move List is empty</h1>
+        )}
       </div>
     </div>
   </section>

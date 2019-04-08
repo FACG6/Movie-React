@@ -5,7 +5,12 @@
   align-items: center;
 }
 
-h1.watchList-h1 {
+.watchList-h1 {
   font-size: 60px;
   font-family: lato;
+}
+
+.emptyList {
+  font-size: 50px;
+  color: brown;
 }
